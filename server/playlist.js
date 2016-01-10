@@ -28,7 +28,7 @@
 					index_playing = 0;
 
 				start_playlist(playlist_videos);
-			}, videos[index_playing].duration * 100);
+			}, videos[index_playing].duration * 1000);
 			// , 2000);
 		}
 
@@ -79,7 +79,7 @@
 						if (playlist_videos.length === 1){
 							start_playlist(playing_videos);
 						}
-						self.fetch();
+						self.fetch(true);
 					}
 				});
 			});
@@ -95,7 +95,7 @@
 					if (!err){
 						model.find(function(err, videos){
 							playlist_videos = videos;
-							self.fetch();
+							self.fetch(true);
 						});
 
 					}
@@ -103,8 +103,12 @@
 			});
 		};
 
-		playlist.prototype.fetch = function(data){
-			this.socket.emit('playlist_fetched', playlist_videos);
+		playlist.prototype.fetch = function(for_all){
+			if (for_all){
+				io.sockets.emit('playlist_fetched', playlist_videos);
+			} else {
+				this.socket.emit('playlist_fetched', playlist_videos);
+			}
 		};
 
 		return playlist;
