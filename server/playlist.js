@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 
-	module.exports.playlist = function(model) {
+	module.exports.playlist = function(model, socket) {
 		var is_playing = false;
 		var index_playing = 0;
 

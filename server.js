@@ -25,13 +25,13 @@
 	var user_model = mongoose.model('user', { login : String });
 	var video_model = mongoose.model('video', { video_id : String, title : String, thumbnail : String, duration : Number });
 
-	var playlist = playlist_module.playlist(video_model);
-	var user = user_module.user(user_model);
+
 
 	io.on('connection', function(socket){
 		console.warn(playlist_module);
 
-
+		var playlist = playlist_module.playlist(video_model, socket);
+		var user = user_module.user(user_model, socket);
 		user.join();
 	});
 
