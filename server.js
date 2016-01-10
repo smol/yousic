@@ -26,6 +26,5 @@
 		res.sendFile('index.html'); // load the single view file (angular will handle the page changes on the front-end)
 	});
 
-
 	console.log('App listening on port 8080');
 })();

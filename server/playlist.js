@@ -38,7 +38,8 @@
 			var self = this;
 
 			socket.on('fetch_current_video', function(data){
-				self.socket.emit('playing_video', { id : playlist_videos[index_playing].video_id, time : 0 })
+				if (playlist_videos[index_playing])
+					self.socket.emit('playing_video', { id : playlist_videos[index_playing].video_id, time : 0 })
 			});
 
 			socket.on('remove_video', function(data){

@@ -11,7 +11,7 @@
 		var user_module = require('./user');
 
 		var Playlist = playlist_module.playlist(video_model, io);
-		user_module.user(user_model);
+		var User = user_module.user(user_model);
 
 		io.sockets.on('connection', function(socket){
 
@@ -19,6 +19,7 @@
 
 
 			new Playlist(socket);
+			new User(socket);
 		});
 	};
 })();
