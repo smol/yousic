@@ -1,0 +1,17 @@
+{
+  "name": "yousic",
+  "homepage": "https://github.com/smol/yousic",
+  "authors": [
+    "Julien Smolareck <julien.smolareck@gmail.com>"
+  ],
+  "description": "A side-project",
+  "license": "LGPL",
+  "dependencies": {
+    "angular": "~1.4.8",
+    "socket.io-client": "~1.4.1",
+    "angular-socket-io": "~0.7.0",
+    "angular-ui-router": "~0.2.15",
+    "angular-animate": "~1.4.8",
+    "angular-route": "~1.4.8"
+  }
+}

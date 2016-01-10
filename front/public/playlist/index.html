@@ -1,0 +1,47 @@
+<aside class="sidebar">
+	<div class="header">
+		<h2>YOUSIC</h2>
+	</div>
+
+	<div class="input-wrapper">
+		<input type="text" data-ng-model="query" placeholder="search"/>
+	</div>
+
+	<h3>#chans</h3>
+	<ul class="chans">
+		<li>bigint</li>
+		<li>dadall</li>
+	</ul>
+
+</aside>
+<div class="search" data-ng-show="results.length > 0">
+	<div class="button" data-ng-click="close_results()">x</div>
+	<ul class="list">
+		<li data-ng-repeat="result in results" data-ng-click="add_video(result)">
+			<img data-ng-src="{{ result.snippet.thumbnails.default.url }}">
+			<div class="title" data-ng-bind="result.snippet.title"></div>
+		</li>
+	</ul>
+</div>
+
+<section>
+	<youtube id="current.id"></youtube>
+</section>
+
+<div id="playlist">
+	<h2 data-ng-show="playlist.length === 0">The playlist is empty</h2>
+
+	<ul data-ng-show="playlist.length > 0">
+		<li data-ng-repeat="video in playlist" data-ng-class="{'active' : current.id === video.id }">
+
+			<img data-ng-src="{{ video.thumbnail }}" alt="thumbnail">
+			<span class="title">{{video.title}}</span>
+			<span class="remove" data-ng-click="remove_video(video)">x</span>
+
+		</li>
+	</ul>
+
+</div>
+
+
+<!-- <youtube></youtube> -->
