@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 
-	module.exports.playlist = function(model, socket) {
+	module.exports.playlist = function(model, io) {
 		var is_playing = false;
 		var index_playing = 0;
 
@@ -17,85 +17,96 @@
 			if (videos.length === 0)
 				return;
 
-			socket.emit('playing_video', { id : videos[index_playing].video_id, time : 0 });
+			console.warn(videos[index_playing].duration);
+			io.sockets.emit('playing_video', { id : videos[index_playing].video_id, time : 0 });
 
 			setTimeout(function(){
 				++index_playing;
 
+				console.warn('next');
 				if (index_playing === playlist_videos.length)
 					index_playing = 0;
 
 				start_playlist(playlist_videos);
-			}, videos[index_playing].duration * 1000);
-
-			socket.on('player_loaded', function(){
-
-			});
+			}, videos[index_playing].duration * 100);
+			// , 2000);
 		}
 
-		var playlist = {
-			add_video : function(data){
-				var self = this;
+		var playlist = function(socket){
+			this.socket = socket;
 
-				model.find({ video_id : data.id.videoId }, function(err, results){
-					if (results.length > 0){
-						socket.emit('add_video_error', { msg : 'video already in the playlist' });
-						return;
-					}
+			var self = this;
 
-					console.warn(data);
-					var video = new model({ video_id : data.id.videoId, title : data.snippet.title, thumbnail : data.snippet.thumbnails.default.url, duration : data.duration });
-					video.save(function(err){
-						if (!err){
-							playlist_videos.push(video);
+			socket.on('fetch_current_video', function(data){
+				self.socket.emit('playing_video', { id : playlist_videos[index_playing].video_id, time : 0 })
+			});
 
-							if (playlist_videos.length === 1){
-								start_playlist(playing_videos);
-							}
-							self.fetch();
-						}
-					});
-				});
-			},
-			start : function(){
-				start_playlist(playlist_videos);
-			},
-			remove_video : function(data){
-				var self = this;
-				model.findOne({ video_id : data.video_id }, function(err, result){
-					if (err || result === null)
-						return;
+			socket.on('remove_video', function(data){
+				self.remove_video(data);
+			});
 
-					result.remove(function(err){
-						if (!err){
-							model.find(function(err, videos){
-								playlist_videos = videos;
-								self.fetch();
-							});
+			socket.on('fetch_video', function(data){
+				console.warn('fetch_video');
+				self.fetch();
+			});
 
-						}
-					});
-				});
-			},
-			fetch : function(){
-				socket.emit('playlist_fetched', playlist_videos);
-			}
+			socket.on('add_video', function(data){
+				self.add_video(data)
+			});
+
 		};
 
-		socket.on('remove_video', function(data){
-			playlist.remove_video(data);
-		});
+		playlist.prototype.start = function (first_argument) {
 
-		socket.on('fetch_video', function(data){
-			console.warn('fetch video');
-			playlist.fetch();
-		});
+		};
 
-		socket.on('add_video', function(data){
-			playlist.add_video(data)
-		});
+		playlist.prototype.add_video = function(data){
+			var self = this;
 
-		return this;
+			model.find({ video_id : data.id.videoId }, function(err, results){
+				if (results.length > 0){
+					socket.emit('add_video_error', { msg : 'video already in the playlist' });
+					return;
+				}
+
+				console.warn(data);
+				var video = new model({ video_id : data.id.videoId, title : data.snippet.title, thumbnail : data.snippet.thumbnails.default.url, duration : data.duration });
+				video.save(function(err){
+					if (!err){
+						playlist_videos.push(video);
+
+						if (playlist_videos.length === 1){
+							start_playlist(playing_videos);
+						}
+						self.fetch();
+					}
+				});
+			});
+		};
+
+		playlist.prototype.remove_video = function(data){
+			var self = this;
+			model.findOne({ video_id : data.video_id }, function(err, result){
+				if (err || result === null)
+					return;
+
+				result.remove(function(err){
+					if (!err){
+						model.find(function(err, videos){
+							playlist_videos = videos;
+							self.fetch();
+						});
+
+					}
+				});
+			});
+		};
+
+		playlist.prototype.fetch = function(data){
+			this.socket.emit('playlist_fetched', playlist_videos);
+		};
+
+		return playlist;
 	}
 
 })();

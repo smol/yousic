@@ -10,6 +10,7 @@
 		var timeout_removal = null;
 
 		socketService.emit('fetch_video');
+		socketService.emit('fetch_current_video');
 
 		socketService.on('playlist_fetched', function(data){
 			console.warn(data);

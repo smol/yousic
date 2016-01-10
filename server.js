@@ -19,22 +19,8 @@
 	app.use(body_parser.json({ type : 'application/vnd.api+json' }));
 	app.use(method_override());
 
-	var playlist_module = require('./server/playlist');
-	var user_module = require('./server/user');
-
-	var user_model = mongoose.model('user', { login : String });
-	var video_model = mongoose.model('video', { video_id : String, title : String, thumbnail : String, duration : Number });
-
-
-
-	io.on('connection', function(socket){
-		console.warn(playlist_module);
-
-		var playlist = playlist_module.playlist(video_model, socket);
-		var user = user_module.user(user_model, socket);
-		user.join();
-	});
-
+	var socket_module = require('./server/socket');
+	socket_module.socket_manager(io, mongoose);
 
 	app.get('/', function(req, res) {
 		res.sendFile('index.html'); // load the single view file (angular will handle the page changes on the front-end)
