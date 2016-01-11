@@ -159,9 +159,21 @@ body {
 section {
 	margin-top:100px;
 
-	> iframe {
+	> .video {
 		display:block;
 		margin:auto;
+		text-align:center;
+
+		> iframe {
+			display:block;
+			margin:auto;
+		}
+	}
+
+	.no-video {
+		text-align:center;
+		color:white;
+		font-weight:bold;
 	}
 }
 
@@ -210,6 +222,10 @@ section {
 			}
 		}
 	}
+}
+
+.connected_user {
+	text-align:center;
 }
 
 // main {

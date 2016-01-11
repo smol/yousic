@@ -25,14 +25,24 @@
 </div>
 
 <section>
-	<youtube id="current.id"></youtube>
+
+	<div class="video" data-ng-if="current !== null">
+		<youtube id="current.video.video_id"></youtube>
+		<div class="title" data-ng-bind="current.video.title"></div>
+	</div>
+
+
+	<div class="no-video" data-ng-show="current === null">
+		There's no music in the playlist
+	</div>
+
 </section>
 
 <div id="playlist">
 	<h2 data-ng-show="playlist.length === 0">The playlist is empty</h2>
 
 	<ul data-ng-show="playlist.length > 0">
-		<li data-ng-repeat="video in playlist" data-ng-class="{'active' : current.id === video.id }">
+		<li data-ng-repeat="video in playlist" data-ng-class="{'active' : current.video.video_id === video.video_id }">
 
 			<img data-ng-src="{{ video.thumbnail }}" alt="thumbnail">
 			<span class="title">{{video.title}}</span>
@@ -42,6 +52,12 @@
 	</ul>
 
 </div>
+
+<ul class="connected_user">
+	<li data-ng-repeat="user in connected_users">
+		{{ user.login }}
+	</li>
+</ul>
 
 
 <!-- <youtube></youtube> -->

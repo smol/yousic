@@ -12,9 +12,17 @@
 		socketService.emit('fetch_video');
 		socketService.emit('fetch_current_video');
 
+		socketService.on('no_video', function(data){
+			$scope.current = null;
+		});
+
 		socketService.on('playlist_fetched', function(data){
-			console.warn(data);
 			$scope.playlist = data;
+			$scope.$apply();
+		});
+
+		socketService.on('update_connected_users', function(data){
+			$scope.connected_users = data;
 			$scope.$apply();
 		});
 

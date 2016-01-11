@@ -9,22 +9,25 @@
 		var playlist = model.find(function(err, videos){
 			playlist_videos = videos;
 
+			is_playing = true;
 			start_playlist(videos);
 			// if (playlist_videos.l)
 		});
 
 		function start_playlist(videos){
-			if (videos.length === 0)
+			if (videos.length === 0){
+				is_playing = false;
+				io.sockets.emit('no_video');
 				return;
+			}
 
-			console.warn(videos[index_playing].duration);
-			io.sockets.emit('playing_video', { id : videos[index_playing].video_id, time : 0 });
+			console.warn('start video', videos[index_playing].title, videos[index_playing].duration);
+			io.sockets.emit('playing_video', { video : videos[index_playing], time : 0 });
 
 			setTimeout(function(){
 				++index_playing;
 
-				console.warn('next');
-				if (index_playing === playlist_videos.length)
+				if (index_playing >= playlist_videos.length)
 					index_playing = 0;
 
 				start_playlist(playlist_videos);
@@ -76,8 +79,10 @@
 					if (!err){
 						playlist_videos.push(video);
 
-						if (playlist_videos.length === 1){
-							start_playlist(playing_videos);
+						console.warn('add video :', data.snippet.title, 'to the playlist');
+						if (playlist_videos.length >= 1 && !is_playing){
+							start_playlist(playlist_videos);
+							is_playing = true;
 						}
 						self.fetch(true);
 					}
