@@ -11,7 +11,6 @@
 
 		socketService.on('join_success', function(data){
 			sessionStorage.setItem('user_login', $scope.login);
-			$scope.$parent.user = $scope.login;
 
 			$scope.login = null;
 			$state.go('root.layout.playlist.views');

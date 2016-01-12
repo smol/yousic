@@ -5,6 +5,8 @@
 	var http = require('http').Server(app);
 	var io = require('socket.io')(server);
 
+	io.set('log level', false)
+
 	var mongoose = require('mongoose');
 	var morgan = require('morgan');
 	var body_parser = require('body-parser');

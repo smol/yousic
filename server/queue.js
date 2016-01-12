@@ -47,6 +47,7 @@
 				return;
 			}
 
+			this.is_playing = true;
 			console.warn('start video', this.videos[this.index].title, this.videos[this.index].duration);
 			this.playing_video_changed(this.io.sockets);
 			// io.sockets.emit('playing_video', { video : videos[index_playing], time : 0 });

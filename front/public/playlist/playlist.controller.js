@@ -7,8 +7,6 @@
 		$scope.results = [];
 		$scope.current = null;
 
-		var timeout_removal = null;
-
 		socketService.on('no_playing_video', function(data){
 			$scope.current = null;
 			$scope.apply();
@@ -22,6 +20,7 @@
 
 
 		$timeout(function(){
+			console.warn('send');
 			socketService.emit('get_playing_video');
 		});
 
@@ -33,7 +32,7 @@
 		// });
 
 
-	
+
 
 	}]);
 })();

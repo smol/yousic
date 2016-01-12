@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module('yousic').controller('SidebarController', [
-		'$scope', '$timeout', 'youtubeService', 'socketService', function($scope, $timeout, youtubeService, socketService){
+		'$scope', '$timeout', '$state', 'youtubeService', 'socketService', function($scope, $timeout, $state, youtubeService, socketService){
 		var timeout_removal = null;
 
 		$scope.$watch('query', function(){

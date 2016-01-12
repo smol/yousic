@@ -26,7 +26,7 @@
 
 			model.find({ video_id : data.id.videoId }, function(err, results){
 				if (results.length > 0){
-					socket.emit('add_video_error', { msg : 'video already in the playlist' });
+					self.socket.emit('add_video_error', { msg : 'video already in the playlist' });
 					return;
 				}
 

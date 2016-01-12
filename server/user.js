@@ -36,8 +36,9 @@
 			function join_successful(){
 				console.warn('user ', data.user_login, 'now connected');
 				self.socket.emit('join_success');
+
 				connected_user.push({socket : self.socket, login : self.login });
-				io.sockets.emit('update_connected_users', connected_user)
+				// io.sockets.emit('update_connected_users', connected_user)
 			}
 
 			model.find({ login : data.user_login }, function(err, results){
