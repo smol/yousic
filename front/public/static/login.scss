@@ -1,0 +1,67 @@
+#home {
+	color:white;
+	overflow: hidden;
+
+	header {
+
+		h2 {
+			text-shadow:2px 2px 2px rgba(255,255,255,0.3);
+		}
+
+		.input-wrapper {
+			background:rgba(255,255,255,0.9);
+			display:inline-block;
+			border-radius: 2px;
+
+			input[type="text"] {
+				outline: none;
+				border:none;
+				background:none;
+
+				padding: 10px;
+				font-size:20px;
+
+				color:#424242;
+			}
+		}
+
+		.submit {
+			display:block;
+
+			color:white;
+			font-size:18px;
+
+			margin:10px auto;
+
+			border-radius:2px;
+			padding:14px;
+
+			width:200px;
+
+			background:#0088BA;
+			position:relative;
+			cursor:pointer;
+
+
+			&:before {
+				content: " ";
+				background:rgba(255,255,255,0.2);
+				position:absolute;
+				top:0px;
+
+				height:100%;
+				left:0px;
+				right:0px;
+
+				opacity:0;
+
+				transition:opacity 0.2s ease-in-out;
+			}
+
+			&:hover:before {
+				opacity:1;
+			}
+		}
+	}
+
+}

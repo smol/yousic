@@ -1,0 +1,30 @@
+<aside class="sidebar">
+	<div class="header">
+		<h2>YOUSIC</h2>
+	</div>
+
+	<div class="logout" data-ng-click="logout()">Logout</div>
+
+	<div class="input-wrapper">
+		<input type="text" data-ng-model="query" placeholder="search"/>
+	</div>
+
+	<h3>#chans</h3>
+
+	<ul class="chans">
+		<li>bigint</li>
+		<li>dadall</li>
+	</ul>
+</aside>
+
+<aside class="result" data-ng-show="results.length > 0">
+	<div class="search" >
+		<div class="button close" data-ng-click="close_results()">x</div>
+		<ul class="list">
+			<li data-ng-repeat="result in results" data-ng-click="add_video(result)">
+				<img data-ng-src="{{ result.snippet.thumbnails.default.url }}">
+				<div class="title" data-ng-bind="result.snippet.title"></div>
+			</li>
+		</ul>
+	</div>
+</aside>

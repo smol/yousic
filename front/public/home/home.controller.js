@@ -5,7 +5,7 @@
 		$scope.login = null;
 
 		if (sessionStorage.getItem('user_login')){
-			$state.go('root.layout.playlist');
+			$state.go('root.layout.playlist.views');
 			return;
 		}
 
@@ -14,7 +14,7 @@
 			$scope.$parent.user = $scope.login;
 
 			$scope.login = null;
-			$state.go('root.layout.playlist');
+			$state.go('root.layout.playlist.views');
 		});
 
 		$scope.join = function(){

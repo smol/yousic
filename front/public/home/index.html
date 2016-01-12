@@ -4,9 +4,12 @@
 
 		<form data-ng-submit="join()">
 			<div class="input-wrapper">
-				<input type="text" id="login" name="login" data-ng-model="login">
+				<input type="text" id="login" name="login" data-ng-model="login" placeholder="Login">
 			</div>
-			<input type="submit" value="JOIN">
+			<div class="submit" data-ng-click="join()">
+				JOIN
+			</div>
+
 		</form>
 	</header>
 

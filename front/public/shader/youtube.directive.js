@@ -20,7 +20,6 @@
 				var player;
 
 				$window.onYouTubeIframeAPIReady = function(){
-					console.warn(scope.id);
 					player = new YT.Player(element[0], {
 						height : '390',
 						width : '640',
@@ -29,9 +28,11 @@
 							'onStateChange': onPlayerStateChange
 						}
 					});
+
 				};
 
 				scope.$watch('id', function(){
+					console.warn('scope id', scope.id);
 					if (player){
 						player.loadVideoById(scope.id, 0, 'medium');
 						player.playVideo();
@@ -39,6 +40,7 @@
 				});
 
 				function onPlayerReady(event){
+					console.warn('player ready', scope.id);
 					if (scope.id){
 						player.loadVideoById(scope.id, 0, 'medium');
 						player.playVideo();

@@ -1,63 +1,12 @@
-<aside class="sidebar">
-	<div class="header">
-		<h2>YOUSIC</h2>
-	</div>
-
-	<div class="input-wrapper">
-		<input type="text" data-ng-model="query" placeholder="search"/>
-	</div>
-
-	<h3>#chans</h3>
-	<ul class="chans">
-		<li>bigint</li>
-		<li>dadall</li>
-	</ul>
-
-</aside>
-<div class="search" data-ng-show="results.length > 0">
-	<div class="button" data-ng-click="close_results()">x</div>
-	<ul class="list">
-		<li data-ng-repeat="result in results" data-ng-click="add_video(result)">
-			<img data-ng-src="{{ result.snippet.thumbnails.default.url }}">
-			<div class="title" data-ng-bind="result.snippet.title"></div>
-		</li>
-	</ul>
-</div>
-
-<section>
-
-	<div class="video" data-ng-if="current !== null">
-		<youtube id="current.video.video_id"></youtube>
-		<div class="title" data-ng-bind="current.video.title"></div>
-	</div>
-
-
-	<div class="no-video" data-ng-show="current === null">
-		There's no music in the playlist
-	</div>
-
-</section>
-
 <div id="playlist">
-	<h2 data-ng-show="playlist.length === 0">The playlist is empty</h2>
+	<div data-ui-view="sidebar">
+	</div>
 
-	<ul data-ng-show="playlist.length > 0">
-		<li data-ng-repeat="video in playlist" data-ng-class="{'active' : current.video.video_id === video.video_id }">
 
-			<img data-ng-src="{{ video.thumbnail }}" alt="thumbnail">
-			<span class="title">{{video.title}}</span>
-			<span class="remove" data-ng-click="remove_video(video)">x</span>
 
-		</li>
-	</ul>
 
+
+	<section class="main" data-ui-view="main"></section>
+
+	<aside data-ui-view="queue" id="queue"></aside>
 </div>
-
-<ul class="connected_user">
-	<li data-ng-repeat="user in connected_users">
-		{{ user.login }}
-	</li>
-</ul>
-
-
-<!-- <youtube></youtube> -->

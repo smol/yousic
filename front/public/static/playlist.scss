@@ -1,0 +1,175 @@
+#playlist {
+	display:flex;
+	flex-direction:row;
+	align-items:stretch;
+	min-height:100vh;
+
+	> div {
+		.sidebar {
+			min-height:100vh;
+			flex:0 1 auto;
+
+			background:#353535;
+			color:white;
+			overflow:hidden;
+
+			width:230px;
+
+			box-shadow:1px 0px 3px rgba(0,0,0,0.2);
+
+			.header {
+				overflow:hidden;
+				text-align:center;
+			}
+
+			.logout {
+				display:block;
+				text-align:center;
+			}
+
+			.input-wrapper {
+				background:rgba(0,0,0,0.4);
+				display:inline-block;
+				width:100%;
+				margin:30px 0px;
+
+
+				input[type="text"] {
+					outline: none;
+					border:none;
+					background:none;
+
+					padding: 10px;
+					font-size:20px;
+
+					color:lightgrey;
+				}
+			}
+
+			> h3 {
+				margin-top:0px;
+			}
+		}
+
+		.result {
+			width:500px;
+			color:white;
+			background:#353535;
+			overflow:hidden;
+			position:absolute;
+			top:0px;
+			bottom:0px;
+			left:230px;
+
+			.search {
+				position:relative;
+				.close {
+					position:absolute;
+					right:10px;
+					top:0px;
+					font-size:20px;
+					cursor:pointer;
+				}
+
+				.list {
+					list-style:none;
+					padding:0px;
+
+					> li {
+						cursor:pointer;
+						overflow:hidden;
+						padding:0px 10px;
+
+						img {
+							float:left;
+							margin-right:15px;
+						}
+
+						.title {
+							margin-top:15px;
+						}
+
+						&:hover {
+							background:rgba(0,0,0,0.3);
+						}
+					}
+				}
+
+			}
+		}
+	}
+
+	.main {
+		flex:1 1 auto;
+		padding-top:100px;
+
+		> .video {
+			display:block;
+			margin:auto;
+			text-align:center;
+
+			.title {
+				line-height:25px;
+				font-size:20px;
+				margin-bottom:10px;
+			}
+
+			> iframe {
+				display:block;
+				margin:auto;
+			}
+		}
+
+		.no-video {
+			text-align:center;
+			color:white;
+			font-weight:bold;
+		}
+	}
+
+	#queue {
+		flex:0 1 auto;
+		background:rgba(0,0,0,0.1);
+		box-shadow:0px 0px 2px rgba(0,0,0,0.4);
+		color:white;
+		width:200px;
+
+		h2 {
+			color:rgba(255,255,255,0.7);
+			font-size:20px;
+			text-align:center;
+		}
+
+		> ul {
+			padding:0px;
+			list-style:none;
+			overflow:auto;
+
+			> li {
+				&:not(:first-child){
+					margin:10px 0px;
+				}
+
+				position:relative;
+
+				> img {
+					display:block;
+					width:40%;
+					margin:auto;
+				}
+
+				> .title {
+					display:block;
+					text-align:center;
+					padding:10px;
+				}
+
+				.remove {
+					position:absolute;
+					top:10px;
+					right:10px;
+				}
+			}
+		}
+	}
+}

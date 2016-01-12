@@ -26,9 +26,26 @@
 				controller : 'HomeController',
 			})
 			.state('root.layout.playlist', {
-				url : '/',
+				abstract : true,
 				templateUrl : 'playlist/index.html',
 				controller : 'PlaylistController'
+			})
+			.state('root.layout.playlist.views', {
+				url : '/',
+				views : {
+					'sidebar' : {
+						templateUrl : 'playlist/sidebar.html',
+						controller : 'SidebarController'
+					},
+					'main' : {
+						templateUrl : 'playlist/main.html',
+						controller : 'IndexController'
+					},
+					'queue' : {
+						templateUrl : 'playlist/queue.html',
+						controller : 'QueueController'
+					}
+				}
 			});
 
 		$urlRouterProvider.when('', '/');
