@@ -1,7 +1,7 @@
 <h2 data-ng-show="queue.length === 0">The playlist is empty</h2>
 
 <ul data-ng-show="queue.length > 0">
-	<li data-ng-repeat="video in queue" data-ng-class="{'active' : current.video.video_id === video.video_id }">
+	<li data-ng-repeat="video in queue" data-ng-class="{'active' : current.id === video.id }">
 		<img data-ng-src="{{ video.thumbnail }}" alt="thumbnail">
 		<span class="title">{{video.title}}</span>
 	</li>
