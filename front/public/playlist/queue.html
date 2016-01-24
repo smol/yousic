@@ -2,10 +2,7 @@
 
 <ul data-ng-show="queue.length > 0">
 	<li data-ng-repeat="video in queue" data-ng-class="{'active' : current.video.video_id === video.video_id }">
-
 		<img data-ng-src="{{ video.thumbnail }}" alt="thumbnail">
 		<span class="title">{{video.title}}</span>
-		<span class="remove" data-ng-click="remove_video(video)">x</span>
-
 	</li>
 </ul>

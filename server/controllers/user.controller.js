@@ -5,11 +5,9 @@
 	// var jwt = require('jwt-simple');
 	// var moment = require('moment');
 
-	module.exports.user_controller = function(app){
+	module.exports.user_controller = function(){
 	// require('../controllers').controllers = function(){
 		var model = require('../models/user.model').user_model();
-
-		app.set('jwtTokenSecret', 'PWET_TAGADA');
 
 		return {
 			create : function(data){

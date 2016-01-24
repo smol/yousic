@@ -26,6 +26,8 @@
 	app.use(method_override());
 	app.use(cookie_parser());
 
+	app.set('jwtTokenSecret', 'PWET_TAGADA');
+
 	var routes = require('./server/routes').routes(io, app);
 
 	app.post('/authenticate', function(req, res){
@@ -42,6 +44,33 @@
 				res.json({error : 'Your password is invalid.'});
 				return;
 			}
+			var expires = moment().add(7,'days').valueOf();
+
+			var token = jwt.encode({
+				id: result._id,
+				exp: expires
+			}, app.get('jwtTokenSecret'));
+
+			res.cookie('token', token);
+			res.json({ success : true, user : { login : result.login } });
+		}).catch(function(err){
+			console.warn('err', err);
+		});
+	});
+
+	app.post('/create_account/', function(req, res){
+		var model = require('./server/models/user.model').user_model();
+
+
+		model.find_one({login : req.body.login}).then(function(result){
+			if (result){
+				res.json({error : 'This account already exists.'});
+				return null;
+			}
+			return model.create(req.body);
+		}).then(function(result){
+			if (!result)
+				return;
 			var expires = moment().add(7,'days').valueOf();
 
 			var token = jwt.encode({

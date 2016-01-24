@@ -19,7 +19,7 @@
 
 				model.findOne(data, function(err, result){
 					console.warn(err, result);
-					if (err || !result){
+					if (err){
 						deferred.reject(err);
 						return;
 					}
@@ -34,9 +34,9 @@
 				var new_user = new model({login : data.login, password : data.password });
 				new_user.save(function(err){
 					if (err)
-						deferred.reject('error save', err);
+						return deferred.reject('error save', err);
 					else
-						deferred.resolve(new_user);
+						return deferred.resolve(new_user);
 				});
 
 				return deferred.promise;

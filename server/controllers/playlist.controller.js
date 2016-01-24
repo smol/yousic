@@ -4,13 +4,14 @@
 	var $q = require('q');
 	var log = require('../log').log;
 
-	module.exports.playlist_controller = function() {
+	module.exports.playlist_controller = function(io) {
 		var model = require('../models/playlist.model').playlist_model();
-		var queue = require('./playlist/queue.manager').queue_manager();
+		var queue = require('./playlist/queue.manager').queue_manager(io);
 
 		model.all().then(function(result){
 			log.info('queue', result);
 			queue.videos = result;
+			queue.start();
 		});
 
 		console.warn(log);
@@ -44,6 +45,16 @@
 			},
 			remove_video : function(data){
 				var deferred = $q.defer();
+
+				return deferred.promise;
+			},
+			current : function(){
+				var deferred = $q.defer();
+
+				deferred.resolve({
+					to : 'caller',
+					data : queue.current()
+				});
 
 				return deferred.promise;
 			},

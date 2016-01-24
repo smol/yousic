@@ -10,6 +10,13 @@
 					console.warn('error', response);
 				});
 			},
+			create : function(login, password){
+				return $http.post('/create_account/', { login : login, password : password }).then(function success(response){
+					return response.data;
+				}, function error(response){
+					console.warn('error', response);
+				});
+			},
 			verify_token : function(){
 				return $http.get('/verify_token/');
 			},

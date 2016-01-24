@@ -13,6 +13,12 @@
 			$scope.apply();
 		});
 
+		socketService.on('queue.change', function(data){
+			console.warn('playing_video', data);
+			$scope.current = data;
+			$scope.$apply();
+		});
+
 		socketService.on('playlist.current', function(data){
 			console.warn('playing_video', data);
 			$scope.current = data;
@@ -31,6 +37,7 @@
 		});
 
 		$timeout(function(){
+			socketService.emit('playlist.current');
 			socketService.emit('playlist.fetch');
 			// console.warn('send');
 			// socketService.emit('user.call');

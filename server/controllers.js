@@ -6,7 +6,7 @@
 
 		this.routes = function(routes){
 			for (var i = 0, length = routes.length; i < length; ++i){
-				this.modules[routes[i]] = require('./controllers/' + routes[i] + '.controller')[routes[i] + '_controller'](app);
+				this.modules[routes[i]] = require('./controllers/' + routes[i] + '.controller')[routes[i] + '_controller'](io);
 			}
 		};
 

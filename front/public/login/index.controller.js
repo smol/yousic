@@ -10,7 +10,17 @@
 		$scope.join = function(){
 			userService.authenticate($scope.login, $scope.password).then(function(data){
 				$rootScope.user = data.user;
-				$state.go('root.layout.home')
+				$state.go('root.layout.home');
+			});
+		};
+
+		$scope.create_account = function(){
+			if ($scope.account_password !== $scope.account_re_password)
+				return;
+
+			userService.create($scope.account_login, $scope.account_password).then(function(data){
+				$rootScope.user = data.user;
+				$state.go('root.layout.home');
 			});
 		};
 
