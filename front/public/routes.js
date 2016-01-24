@@ -19,10 +19,6 @@
 				templateUrl : 'login/index.html',
 				controller : 'LoginController'
 			})
-			// .state('root.layout.home', {
-			// 	templateUrl : 'home/index.html',
-			// 	controller : 'HomeController',
-			// })
 			.state('root.layout', {
 				abstract : true,
 				templateUrl : 'playlist/index.html',

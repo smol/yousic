@@ -3,6 +3,8 @@
 	overflow: hidden;
 	min-height:100vh;
 	position:relative;
+	background:url(/static/img/overlay_background.jpg);
+	background-size:cover;
 
 	input[type="text"],input[type="password"] {
 		width:100%;
@@ -14,11 +16,12 @@
 		border:none;
 
 		padding: 10px;
-		font-size:20px;
+		font-size:21px;
 
 		color:#424242;
 
 		box-sizing:border-box;
+		border-bottom:1px solid #DCDCDC;
 	}
 
 	.submit {
@@ -36,7 +39,7 @@
 		position:relative;
 		cursor:pointer;
 		text-align:center;
-
+		border-bottom:2px solid #00729C;
 
 		&:before {
 			content: " ";
@@ -59,22 +62,63 @@
 	}
 
 	header {
+		text-align:center;
+		margin-top:40px;
+		overflow:hidden;
 
 		h2 {
-			text-shadow:2px 2px 2px rgba(255,255,255,0.3);
+			font-weight:normal;
+			font-size:35px;
+			margin:5px;
 		}
 
-		.wrapper {
-			width:220px;
-			margin:auto;
+		h3 {
+			margin:0px;
+			font-weight:normal;
+		}
+	}
 
-			> a {
-				display:block;
-				text-align:right;
-				color:white;
-			}
+	@keyframes auth_anim {
+		0% {
+			transform-origin:0% 0%;
+			transform:rotate3d(1,0,0,-90deg) translate3d(-50%, -50%, 0);
+		}
+		100% {
+			transform-origin:0% 0%;
+			transform:rotate3d(1,0,0,0deg) translate3d(-50%, -50%, 0);
+		}
+	}
+
+	.authentication {
+		color:#424242;
+		width:350px;
+		margin:auto;
+		background:white;
+		padding:30px;
+		box-sizing:border-box;
+		border-radius:2px;
+		box-shadow:0px 1px 0px #DCDCDC;
+
+		position:absolute;
+		top:50%;
+		left:50%;
+		transform:translate3d(-50%, -50%, 0);
+
+		border-bottom:1px solid #DCDCDC;
+
+		animation-duration:0.5s;
+		animation-name:auth_anim;
+
+		h3 {
+			margin-top:0px;
+			text-align:center;
 		}
 
+		> a {
+			display:block;
+			text-align:right;
+			color:#424242;
+		}
 	}
 
 
@@ -102,7 +146,7 @@
 		> form {
 			h2 {
 				text-align:center;
-				font-size:40px;
+				font-size:32px;
 				margin-top:0px;
 			}
 
