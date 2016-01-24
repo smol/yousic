@@ -45,7 +45,6 @@
 			var self = this;
 
 			function next(){
-				console.info('next video', self.current());
 				io.sockets.emit('queue.change', self.current());
 
 				setTimeout(function(){
@@ -56,8 +55,7 @@
 
 					next();
 
-
-				}, self.videos[self.index].duration * 100);
+				}, self.videos[self.index].duration * 1000);
 			}
 
 			if (this.videos.length > 0){
