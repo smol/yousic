@@ -5,23 +5,37 @@
 		$scope.query = '';
 
 		$scope.results = [];
+		$scope.queue = [];
 		$scope.current = null;
 
-		socketService.on('no_playing_video', function(data){
+		socketService.on('playlist.no_video', function(data){
 			$scope.current = null;
 			$scope.apply();
 		});
 
-		socketService.on('send_playing_video', function(data){
+		socketService.on('playlist.current', function(data){
 			console.warn('playing_video', data);
 			$scope.current = data;
 			$scope.$apply();
 		});
 
+		socketService.on('playlist.fetch', function(data){
+			console.warn('fetch', data);
+			$scope.queue = data;
+		});
+
+		socketService.on('playlist.add_video', function(data){
+
+			$scope.queue = data;
+			$scope.$apply();
+		});
 
 		$timeout(function(){
-			console.warn('send');
-			socketService.emit('get_playing_video');
+			socketService.emit('playlist.fetch');
+			// console.warn('send');
+			// socketService.emit('user.call');
+			//
+			// socketService.emit('playlist.add_video', {id : 'v2AC41dgww'});
 		});
 
 

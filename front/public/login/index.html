@@ -1,0 +1,44 @@
+<div id="home">
+	<header>
+		<h2>SHARE YOUR TASTES</h2>
+
+		<div class="wrapper">
+			<form data-ng-submit="join()">
+				<input type="text" id="login" name="login" data-ng-model="login" placeholder="Login">
+				<input type="password" id="password" name="password" data-ng-model="password" placeholder="Password">
+				<div class="submit" data-ng-click="join()">
+					JOIN
+				</div>
+			</form>
+
+			<a href="javascript:" data-ng-click="account_popup = true">Create an account</a>
+		</div>
+	</header>
+
+	<section class="home-text">
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	</section>
+
+	<div class="account-popup ng-hide-animate" data-ng-show="account_popup">
+
+		<form data-ng-submit="create_account()">
+			<h2>YOUSIC</h2>
+			<input type="text" id="login" name="login" data-ng-model="account_login" placeholder="Login">
+			<input type="password" id="password" name="password" data-ng-model="account_password" placeholder="Password">
+			<input type="password" id="password" name="password" data-ng-model="account_re_password" placeholder="Retype password">
+
+			<div class="submit cancel" data-ng-click="account_popup = false">
+				CANCEL
+			</div>
+
+			<div class="submit" data-ng-click="create_account()">
+				JOIN
+			</div>
+		</form>
+
+	</div>
+
+
+	<!-- <youtube></youtube> -->
+
+</div>

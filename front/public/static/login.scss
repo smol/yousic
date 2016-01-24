@@ -1,6 +1,62 @@
 #home {
 	color:white;
 	overflow: hidden;
+	min-height:100vh;
+	position:relative;
+
+	input[type="text"],input[type="password"] {
+		width:100%;
+		background:rgba(255,255,255,0.9);
+		display:block;
+		margin:10px auto;
+		border-radius: 2px;
+		outline: none;
+		border:none;
+
+		padding: 10px;
+		font-size:20px;
+
+		color:#424242;
+
+		box-sizing:border-box;
+	}
+
+	.submit {
+		display:block;
+
+		color:white;
+		font-size:18px;
+
+		margin:10px auto;
+
+		border-radius:2px;
+		padding:14px;
+
+		background:#0088BA;
+		position:relative;
+		cursor:pointer;
+		text-align:center;
+
+
+		&:before {
+			content: " ";
+			background:rgba(255,255,255,0.2);
+			position:absolute;
+			top:0px;
+
+			height:100%;
+			left:0px;
+			right:0px;
+
+			opacity:0;
+
+			transition:opacity 0.2s ease-in-out;
+		}
+
+		&:hover:before {
+			opacity:1;
+		}
+	}
 
 	header {
 
@@ -8,60 +64,75 @@
 			text-shadow:2px 2px 2px rgba(255,255,255,0.3);
 		}
 
-		.input-wrapper {
-			background:rgba(255,255,255,0.9);
-			display:inline-block;
-			border-radius: 2px;
+		.wrapper {
+			width:220px;
+			margin:auto;
 
-			input[type="text"] {
-				outline: none;
-				border:none;
-				background:none;
-
-				padding: 10px;
-				font-size:20px;
-
-				color:#424242;
+			> a {
+				display:block;
+				text-align:right;
+				color:white;
 			}
 		}
 
-		.submit {
-			display:block;
-
-			color:white;
-			font-size:18px;
-
-			margin:10px auto;
-
-			border-radius:2px;
-			padding:14px;
-
-			width:200px;
-
-			background:#0088BA;
-			position:relative;
-			cursor:pointer;
-
-
-			&:before {
-				content: " ";
-				background:rgba(255,255,255,0.2);
-				position:absolute;
-				top:0px;
-
-				height:100%;
-				left:0px;
-				right:0px;
-
-				opacity:0;
-
-				transition:opacity 0.2s ease-in-out;
-			}
-
-			&:hover:before {
-				opacity:1;
-			}
-		}
 	}
 
+
+	.account-popup {
+		position:absolute;
+		top:0px;
+		bottom:0px;
+		left:0px;
+		right:0px;
+		background:rgba(255,255,255,0.2);
+
+		opacity:1;
+		transition:opacity 0.2s ease-in-out;
+		height:auto;
+
+		&.ng-hide {
+			opacity:0;
+			height:0px;
+
+			> form {
+				transform:translate3d(-50%, -60%, 0);
+			}
+		}
+
+		> form {
+			h2 {
+				text-align:center;
+				font-size:40px;
+				margin-top:0px;
+			}
+
+			padding:50px;
+			background:#424242;
+			position:absolute;
+
+			width:500px;
+			border-radius:2px;
+
+			top:50%;
+			left:50%;
+
+			transform:translate3d(-50%, -50%, 0);
+
+			transition:transform 0.2s ease-in-out;
+
+
+
+			> .submit, > .cancel {
+				display:inline-block;
+				vertical-align:top;
+
+				width:calc(100% / 2 - 30px);
+
+				&.cancel {
+					background:#F35F5F;
+				}
+			}
+		}
+
+	}
 }

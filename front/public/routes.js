@@ -15,22 +15,20 @@
 				templateUrl : 'root.html',
 				controller : 'RootController'
 			})
+			.state('root.login', {
+				templateUrl : 'login/index.html',
+				controller : 'LoginController'
+			})
+			// .state('root.layout.home', {
+			// 	templateUrl : 'home/index.html',
+			// 	controller : 'HomeController',
+			// })
 			.state('root.layout', {
-				abstract:true,
-				views : {
-					'' : { template : '<div data-ui-view></div>' },
-				}
-			})
-			.state('root.layout.home', {
-				templateUrl : 'home/index.html',
-				controller : 'HomeController',
-			})
-			.state('root.layout.playlist', {
 				abstract : true,
 				templateUrl : 'playlist/index.html',
 				controller : 'PlaylistController'
 			})
-			.state('root.layout.playlist.views', {
+			.state('root.layout.home', {
 				url : '/',
 				views : {
 					'sidebar' : {

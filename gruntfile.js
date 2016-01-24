@@ -54,6 +54,7 @@ module.exports = function(grunt) {
 					'<%= dirs.modules %>/socket.io-client/socket.io.js',
 					'<%= dirs.modules %>/angular-socket-io/socket.min.js',
 					'<%= dirs.modules %>/angular-ui-router/release/angular-ui-router.min.js',
+					'<%= dirs.modules %>/angular-cookies/angular-cookies.min.js'
 				],
 				dest: '<%= dirs.build %>/lib.min.js',
 			},

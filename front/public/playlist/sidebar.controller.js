@@ -2,7 +2,8 @@
 	'use strict';
 
 	angular.module('yousic').controller('SidebarController', [
-		'$scope', '$timeout', '$state', 'youtubeService', 'socketService', function($scope, $timeout, $state, youtubeService, socketService){
+		'$scope','$rootScope', '$timeout', '$state', '$cookies', 'youtubeService', 'socketService', 'userService',
+		function($scope, $rootScope, $timeout, $state, $cookies, youtubeService, socketService, userService){
 		var timeout_removal = null;
 
 		$scope.$watch('query', function(){
@@ -21,8 +22,12 @@
 		});
 
 		$scope.logout = function(){
-			sessionStorage.removeItem('user_login');
-			$state.go('root.layout.home');
+
+			userService.logout().then(function(){
+				$rootScope.user = null;
+				$state.go($state.current, {}, {reload : true});
+			});
+			//
 		};
 
 		$scope.close_results = function(){
@@ -33,7 +38,17 @@
 			youtubeService.add_video(item.id.videoId).then(function(duration){
 				item.duration = duration;
 				$scope.results = [];
-				socketService.emit('add_video', item);
+
+
+				item.user = $scope.user;
+				console.warn(item);
+				socketService.emit('playlist.add_video', {
+					id : item.id.videoId,
+					title : item.snippet.title,
+					duration : item.duration,
+					thumbnail : item.snippet.thumbnails.default.url,
+					user : $scope.user
+				});
 			});
 
 

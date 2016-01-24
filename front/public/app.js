@@ -8,10 +8,12 @@
 	 */
 	var app = angular.module('yousic', [
 		// Dépendances du "module"
-		'ui.router'
+		'ui.router',
+		'ngCookies'
 	]);
 
-	app.run(['$rootScope', '$state', '$stateParams', function ($rootScope,   $state,   $stateParams) {
+	app.run(['$rootScope', '$state', '$stateParams', '$cookies', 'userService',
+			function($rootScope, $state, $stateParams, $cookies, userService) {
 		$rootScope.$state = $state;
 		$rootScope.$stateParams = $stateParams;
 
@@ -29,7 +31,22 @@
 		});
 
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-
+			if (toState.name !== 'root.login' && !$cookies.get('token')){
+				console.warn('fail');
+				$state.go('root.login');
+				event.preventDefault();
+				return;
+			} else if (toState.name !== 'root.login' && !$rootScope.user) {
+				userService.verify_token().then(function success(response){
+					var params = angular.copy(toParams);
+					$rootScope.user = response.data;
+					$state.go(toState.name, params);
+				}, function error(error){
+					$state.go('root.login');
+				});
+				event.preventDefault();
+				return;
+			}
 		});
 
 		$rootScope.$on('$stateChangeSuccess',function(){

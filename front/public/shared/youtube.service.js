@@ -17,8 +17,6 @@
 				return $http.get(
 					base_url + 'videos?id='+id+'&part=contentDetails&key=' + api_key
 				).then(function(response){
-
-					console.warn(response.data);
 					var regex = /PT([0-9]+)M([0-9]+)S/;
 					var matches = regex.exec(response.data.items[0].contentDetails.duration);
 
