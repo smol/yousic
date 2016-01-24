@@ -2,7 +2,6 @@
 	'use strict';
 
 	var Mongoose = require('mongoose');
-	var bcrypt = require('bcrypt');
 	var $q = require('q');
 	var SALT_WORK_FACTOR = 10;
 
