@@ -16,5 +16,17 @@
 		// $timeout(function(){
 		// 	socketService.emit('get_queue');
 		// });
+
+		$scope.remove = function(item){
+			console.warn('hallo', item);
+			socketService.emit('playlist.remove_video', item);
+		};
+
+		socketService.on('playlist.remove_video', function(data){
+			console.warn('queue_changed', data);
+			
+			// socketService.emit('playlist.current');
+			socketService.emit('playlist.fetch');
+		});
 	}]);
 })();

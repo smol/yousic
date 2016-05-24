@@ -8,20 +8,21 @@
 		var model = require('../models/playlist.model').playlist_model();
 		var queue = require('./playlist/queue.manager').queue_manager(io);
 
+		console.warn('hallo');
+
 		model.all().then(function(result){
+			console.warn('start', result);
 			log.info('queue', result);
 			queue.videos = result;
 			queue.start();
 		});
-
-		console.warn(log);
 
 		return {
 			add_video : function(data){
 				var deferred = $q.defer();
 
 				log.info('add_video', data);
-				model.find_one(data.id).then(function(video){
+				model.find_one({ video_id : data.id }).then(function(video){
 					if (!video){
 						queue.add(data);
 						return model.insert(data);
@@ -29,6 +30,7 @@
 
 					return null;
 				}).then(function(data){
+					console.warn('data', data);
 					if (!data)
 						deferred.reject('error add_video');
 					else {
@@ -45,6 +47,20 @@
 			},
 			remove_video : function(data){
 				var deferred = $q.defer();
+
+				var self = this;
+
+				model.delete(data.id).then(function(id){
+					console.warn('remove success');
+					queue.remove(data.id);
+					
+					deferred.resolve({
+						to: 'all',
+						data: queue.videos
+					});
+				}).catch(function(err){
+					console.warn('remove error', err);
+				});
 
 				return deferred.promise;
 			},

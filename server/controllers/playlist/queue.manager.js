@@ -2,31 +2,6 @@
 	'use strict';
 
 	module.exports.queue_manager = function(io){
-		// queue_manager.prototype.next_video = function(){
-		// 			var self = this;
-		//
-		// 			console.warn('next_video', this.index);
-		//
-		// 			if (this.videos.length === 0){
-		// 				this.is_playing = false;
-		// 				return;
-		// 			}
-		//
-		// 			this.is_playing = true;
-		// 			console.warn('start video', this.videos[this.index].title, this.videos[this.index].duration);
-		// 			this.playing_video_changed(this.io.sockets);
-		// 			// io.sockets.emit('playing_video', { video : videos[index_playing], time : 0 });
-		//
-		// 			setTimeout(function(){
-		// 				++self.index;
-		//
-		// 				if (self.index >= self.videos.length)
-		// 					self.index = 0;
-		//
-		// 				self.next_video();
-		// 			}, this.videos[this.index].duration * 100);
-		// 		};
-
 		var STATUS = { PLAYING : 1, STOPPED : 0 }
 
 		var Queue = function queue(){
@@ -65,12 +40,29 @@
 			}
 		};
 
+		Queue.prototype.remove = function (id) {
+			console.warn('splace', id);
+			for (var i = 0; i < this.videos.length; i++) {
+				if (this.videos[i].id === id){
+					this.videos.splice(i, 1);
+					console.warn(i, this.index);
+					// this.index--;
+					return;
+				}
+			}
+		};
+
 		Queue.prototype.current = function(){
+			if (!this.videos || this.videos.length === 0)
+				return null;
 			return this.videos[this.index];
 		};
 
 		Queue.prototype.add = function add(video){
 			console.warn('add queue', this.videos, video);
+			if (!this.videos)
+				this.videos = [];
+
 			this.videos.push(video);
 
 			if (this.status === STATUS.STOPPED)

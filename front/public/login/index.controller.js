@@ -19,8 +19,12 @@
 				return;
 
 			userService.create($scope.account_login, $scope.account_password).then(function(data){
-				$rootScope.user = data.user;
-				$state.go('root.layout.home');
+				if (data.user){
+					$rootScope.user = data.user;
+					$state.go('root.layout.home');
+				} else if (data.error){
+					console.warn('ERROR', data.error);
+				}
 			});
 		};
 

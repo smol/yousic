@@ -1,41 +1,55 @@
 (function(){
 	'use strict';
 
-	var Mongoose = require('mongoose');
+	var mysql = require('../mysql').mysql_wrapper().get_connection();
 	var $q = require('q');
 	var SALT_WORK_FACTOR = 10;
 
-	var model = Mongoose.model('user', {
-		login : { type : String, required : true, match : /^[a-zA-Z0-9-_]+$/ },
-		password : { type : String, required : true },
-		videos : [{type : Mongoose.Schema.ObjectId, ref : 'video'}]
-	});
 
 	module.exports.user_model = function(){
 		return {
 			find_one : function(data){
 				var deferred = $q.defer();
+				var sql = null;
 
-				model.findOne(data, function(err, result){
-					console.warn(err, result);
+				console.warn(data);
+				if (data.login)
+					sql = 'SELECT id, login, password from user WHERE login = \'' + data.login + '\'';
+				else if (data.id)
+					sql = 'SELECT id, login, password from user WHERE id = \'' + data.id + '\'';
+				else
+					return;
+
+				mysql.query(sql, function(err, rows, fields){
+					console.warn(err, rows);
 					if (err){
 						deferred.reject(err);
 						return;
 					}
-					deferred.resolve(result);
+					deferred.resolve(rows[0]);
 				});
 
 				return deferred.promise;
 			},
 			create : function(data){
 				var deferred = $q.defer();
+				var self = this;
 
-				var new_user = new model({login : data.login, password : data.password });
-				new_user.save(function(err){
-					if (err)
-						return deferred.reject('error save', err);
-					else
-						return deferred.resolve(new_user);
+				var new_user = { login : data.login, password : data.password };
+
+				var sql = 'INSERT INTO user (login, password, id_role) VALUES(\''+ data.login +'\',\'' + data.password + '\', 3)';
+
+				mysql.query(sql, function(err, rows, fields){
+					if (err){
+						console.warn('error', err);
+
+						deferred.reject(err);
+						return;
+					}
+
+					console.warn('success');
+
+					deferred.resolve(new_user);
 				});
 
 				return deferred.promise;

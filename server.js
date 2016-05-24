@@ -9,13 +9,12 @@
 
 	io.set('log level', false)
 
-	var mongoose = require('mongoose');
 	var morgan = require('morgan');
 	var body_parser = require('body-parser');
 	var method_override = require('method-override');
 	var cookie_parser = require('cookie-parser');
 
-	mongoose.connect('mongodb://localhost/yousic');
+	var mysql = require('./server/mysql');
 
 	app.use(express.static(__dirname + '/front/build'));
 
@@ -44,15 +43,16 @@
 				res.json({error : 'Your password is invalid.'});
 				return;
 			}
+
 			var expires = moment().add(7,'days').valueOf();
 
 			var token = jwt.encode({
-				id: result._id,
+				id: result.id,
 				exp: expires
 			}, app.get('jwtTokenSecret'));
 
 			res.cookie('token', token);
-			res.json({ success : true, user : { login : result.login } });
+			res.json({ success : true, user : { login : result.login, id : result.id } });
 		}).catch(function(err){
 			console.warn('err', err);
 		});
@@ -71,15 +71,19 @@
 		}).then(function(result){
 			if (!result)
 				return;
+
+			console.warn('result', result);
 			var expires = moment().add(7,'days').valueOf();
 
 			var token = jwt.encode({
-				id: result._id,
+				id: result.id,
 				exp: expires
 			}, app.get('jwtTokenSecret'));
 
+			console.warn('result', result);
+
 			res.cookie('token', token);
-			res.json({ success : true, user : { login : result.login } });
+			res.json({ success : true, user : { login : result.login, id : result.id } });
 		}).catch(function(err){
 			console.warn('err', err);
 		});
@@ -87,25 +91,25 @@
 
 	app.get('/verify_token/', function(req, res) {
 
-		try {
+		// try {
 			var decoded = jwt.decode(req.cookies.token, app.get('jwtTokenSecret'));
 			if (decoded.exp <= Date.now()){
 				res.status(401).json({error : 'The token expired.'});
 				return;
 			}
-
+			console.warn('decoded', decoded);
 			var model = require('./server/models/user.model').user_model();
-			model.find_one({_id : decoded.id}).then(function(result){
+			model.find_one({ id : decoded.id }).then(function(result){
 				if (!result){
 					res.status(401).json({error : 'The account doesn\'t exist anymore.'});
 					return;
 				}
 
-				res.json({login : result.login});
+				res.json({login : result.login, id : result.id });
 			});
-		} catch (err){
-			res.status(400).json({error : err});
-		}
+		// } catch (err){
+		// 	res.status(400).json({error : err});
+		// }
 	});
 
 	app.get('/logout/', function(req, res){

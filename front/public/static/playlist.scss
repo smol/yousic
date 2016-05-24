@@ -170,6 +170,8 @@
 				color:#424242;
 				padding:15px;
 				box-shadow:0px 1px 0px #DCDCDC;
+				overflow: hidden;
+
 				&.active{background:#DBEBF9};
 
 				> img {
@@ -183,10 +185,21 @@
 					text-align:center;
 				}
 
+				.posted {
+					background: #424242;
+					border-radius: 2px;
+					float: right;
+					margin-top: 10px;
+					padding: 0px 5px;
+					margin-bottom: -10px;
+					color: white;
+				}
+
 				.remove {
 					position:absolute;
 					top:10px;
 					right:10px;
+					cursor:pointer;
 				}
 			}
 		}

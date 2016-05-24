@@ -27,7 +27,6 @@
 				$rootScope.user = null;
 				$state.go($state.current, {}, {reload : true});
 			});
-			//
 		};
 
 		$scope.close_results = function(){
@@ -41,7 +40,7 @@
 
 
 				item.user = $scope.user;
-				console.warn(item);
+				console.warn('hallo', item);
 				socketService.emit('playlist.add_video', {
 					id : item.id.videoId,
 					title : item.snippet.title,

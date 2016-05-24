@@ -28,10 +28,10 @@
 		socketService.on('playlist.fetch', function(data){
 			console.warn('fetch', data);
 			$scope.queue = data;
+			$scope.$apply();
 		});
 
 		socketService.on('playlist.add_video', function(data){
-
 			$scope.queue = data;
 			$scope.$apply();
 		});

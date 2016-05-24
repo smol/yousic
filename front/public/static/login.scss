@@ -33,31 +33,30 @@
 		margin:10px auto;
 
 		border-radius:2px;
-		padding:14px;
+
 
 		background:#0088BA;
 		position:relative;
 		cursor:pointer;
 		text-align:center;
-		border-bottom:2px solid #00729C;
+		border-bottom:1px solid #00729C;
 
-		&:before {
-			content: " ";
-			background:rgba(255,255,255,0.2);
-			position:absolute;
-			top:0px;
+		& .wrapper {
+			padding:14px;
+			background:rgba(255,255,255,0);
+			//position:absolute;
+			//top:0px;
+			//
+			//bottom:0px;
+			//left:0px;
+			//right:0px;
 
-			height:100%;
-			left:0px;
-			right:0px;
-
-			opacity:0;
-
-			transition:opacity 0.2s ease-in-out;
+			transition:background 0.2s ease-in-out;
 		}
 
-		&:hover:before {
-			opacity:1;
+		&:hover .wrapper {
+			background:rgba(255,255,255,0.2);
+			//opacity:1;
 		}
 	}
 
@@ -81,11 +80,11 @@
 	@keyframes auth_anim {
 		0% {
 			transform-origin:0% 0%;
-			transform:rotate3d(1,0,0,-90deg) translate3d(-50%, -50%, 0);
+			transform:rotate3d(1,0,0,-90deg) translate(-50%, -50%);
 		}
 		100% {
 			transform-origin:0% 0%;
-			transform:rotate3d(1,0,0,0deg) translate3d(-50%, -50%, 0);
+			transform:rotate3d(1,0,0,0deg) translate(-50%, -50%);
 		}
 	}
 
@@ -102,7 +101,7 @@
 		position:absolute;
 		top:50%;
 		left:50%;
-		transform:translate3d(-50%, -50%, 0);
+		transform:translate(-50%, -50%);
 
 		border-bottom:1px solid #DCDCDC;
 
@@ -128,7 +127,7 @@
 		bottom:0px;
 		left:0px;
 		right:0px;
-		background:rgba(255,255,255,0.2);
+		background:rgba(0,0,0,0.4);
 
 		opacity:1;
 		transition:opacity 0.2s ease-in-out;
@@ -139,7 +138,7 @@
 			height:0px;
 
 			> form {
-				transform:translate3d(-50%, -60%, 0);
+				transform:translate(-50%, -60%);
 			}
 		}
 
@@ -148,10 +147,11 @@
 				text-align:center;
 				font-size:32px;
 				margin-top:0px;
+				color:#424242;
 			}
 
 			padding:50px;
-			background:#424242;
+			background:white;
 			position:absolute;
 
 			width:500px;
@@ -160,20 +160,22 @@
 			top:50%;
 			left:50%;
 
-			transform:translate3d(-50%, -50%, 0);
+			transform:translate(-50%, -50%);
 
 			transition:transform 0.2s ease-in-out;
 
 
 
 			> .submit, > .cancel {
+				box-sizing:border-box;
 				display:inline-block;
 				vertical-align:top;
 
-				width:calc(100% / 2 - 30px);
+				width:calc(100% / 2 - 3px);
 
 				&.cancel {
 					background:#F35F5F;
+					border-bottom:1px solid #9E5656;
 				}
 			}
 		}
